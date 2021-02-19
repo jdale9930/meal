@@ -5,11 +5,35 @@ const SearchPage = (props) => {
     const [query, setQuery] = useState("")
     const [category, setCategory] = useState("")
     const [ingredient, setIngredient] = useState("")
+    const [error, setError] = useState("")
+    const [meals, setMeals] = useState([])
 
 
     async function getMeals(query, ingredient, category)
     {
         const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}/filter.php?i=${ingredient}/filter.php?c=${category}`
+
+        try
+        {
+            setError("")
+            let response = await fetch(url);
+            let json = await response.json();
+
+            let newMeals = json.meals.map((v)=> {
+                let ingList = []
+                for (let key in v){
+                    if(v[key].includes("strIngredient") && v[key] !== ""){
+                    ingList.push(v[key])
+                    }
+                }
+                return {meal: v.strMeal, image: v.strMealThumb, ingredientsList: ingList}
+            })
+        }
+        catch(e)
+        {
+            setError("Something went wrong!")
+            setMeals([])
+        }
     }
 
     return(
