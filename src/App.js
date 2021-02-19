@@ -5,9 +5,12 @@ import {Switch, Route, BrowserRouter, Redirect, NavLink} from "react-router-dom"
 function App() {
   return (
     <BrowserRouter>
+      <nav>
+        
+      </nav>
     <Switch>
       <Route>
-        
+
       </Route>
     </Switch>
     </BrowserRouter>
