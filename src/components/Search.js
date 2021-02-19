@@ -28,6 +28,7 @@ const SearchPage = (props) => {
                 }
                 return {meal: v.strMeal, image: v.strMealThumb, ingredientsList: ingList}
             })
+            setMeals(newMeals)
         }
         catch(e)
         {
