@@ -1,0 +1,18 @@
+.mealImage{
+    height: 200px;
+    width: 200px;
+}
+
+.displayContainer{
+    display: flex;
+    flex-flow: column wrap;
+    width: 200px;
+    margin-left: 20px;
+    margin-top: 20px;
+    border: 2px solid black;
+}
+
+.mealName{
+    text-align: center;
+    height: 40px;
+}

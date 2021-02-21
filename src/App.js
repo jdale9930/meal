@@ -3,6 +3,7 @@ import './App.css';
 import SearchPage from "./components/Search/Search"
 import MealPlanner from "./components/MealPlanner/MealPlanner"
 import Login from "./components/Login/Login"
+import {Switch, Route, BrowserRouter, Redirect, NavLink} from "react-router-dom"
 
 function App() {
   return (

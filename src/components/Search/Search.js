@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-//import {connect} from 'react-redux';
+import MealDisplay from "../MealDisplay/MealDisplay"
+import "./Search.css"
 
 const SearchPage = (props) => {
     const [query, setQuery] = useState("")
@@ -11,24 +12,30 @@ const SearchPage = (props) => {
 
     async function getMeals(query, ingredient, category)
     {
-        const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}/filter.php?i=${ingredient}/filter.php?c=${category}`
-
+        const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
+        ///filter.php?i=${ingredient}/filter.php?c=${category}`
+        console.log(url)
         try
         {
             setError("")
             let response = await fetch(url);
             let json = await response.json();
-
+            console.log(json)
             let newMeals = json.meals.map((v)=> {
-                let ingList = []
-                for (let key in v){
-                    if(v[key].includes("strIngredient") && v[key] !== ""){
-                    ingList.push(v[key])
-                    }
-                }
-                return {meal: v.strMeal, image: v.strMealThumb, ingredientsList: ingList}
+                 console.log(v)
+            //     let ingList = []
+            //     for (let key in v){
+            //         console.log(ingList)
+            //         if(v[key].includes("strIngredient") && v[key] !== ""){
+            //         ingList.push(v[key])
+            //         }
+            //     }
+            //     console.log({id: v.idMeal, meal: v.strMeal, image: v.strMealThumb, ingredientsList: ""})
+                return {id: v.idMeal, meal: v.strMeal, image: v.strMealThumb}
             })
+            console.log(newMeals[0].image)
             setMeals(newMeals)
+            console.log(meals)
         }
         catch(e)
         {
@@ -64,6 +71,13 @@ const SearchPage = (props) => {
             </select>
             <button onClick = {(e) => getMeals(query, ingredient, category)} 
             >Submit</button>
+            <div className = "mealContainer">
+            {error.length > 0 && <h1>{error}</h1>}
+            {error.length === 0 && 
+                meals.map((v) => 
+                <MealDisplay key = {v.id} image = {v.image} title = {v.meal}/>)
+            }
+            </div>
         </>
     )
 
